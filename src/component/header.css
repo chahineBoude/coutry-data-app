@@ -1,0 +1,8 @@
+.app__header {
+  background-color: var(--color-black);
+  padding-top: 2 rem;
+}
+
+.app__header_section p {
+  color: var(--color-white);
+}
