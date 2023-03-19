@@ -1,3 +1,3 @@
-import countries from "./countries.geojson";
+import countries from "./countries.json";
 
 export { countries };

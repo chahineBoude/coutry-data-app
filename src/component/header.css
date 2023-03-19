@@ -3,6 +3,27 @@
   padding-top: 2 rem;
 }
 
+.app__header_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .app__header_section p {
   color: var(--color-white);
+}
+
+.searchbar {
+  margin-top: 2rem;
+  font-size: 25px;
+  width: 200%;
+  border-radius: 10px;
+}
+
+.search__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200%;
 }

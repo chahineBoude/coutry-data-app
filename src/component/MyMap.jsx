@@ -1,16 +1,7 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  GeoJSON,
-  Marker,
-  Popup,
-  useMapEvents,
-} from "react-leaflet";
+import React, { useState } from "react";
+import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
 import countries from "../data/countries.json";
-import { BsFillFlagFill } from "react-icons/bs";
-import { GiCancel } from "react-icons/gi";
 
 import "./map.css";
 
@@ -23,7 +14,7 @@ function MyMap() {
   const handleClick = (country, layer) => {
     const countryCode = country.properties.ISO_A3;
     layer.on({
-      click: () => {
+      click: (e) => {
         axios
           .get(`https://restcountries.com/v3.1/alpha/${countryCode}`)
           .then((response) => {
@@ -31,7 +22,7 @@ function MyMap() {
             const commonName = Object.values(nativeName)[0].official;
             const flag = response.data[0].flags.svg;
             const coa = response.data[0].coatOfArms.svg;
-            console.log(flag);
+            setLatLong([e.latlng.lat, e.latlng.lng]);
             const info = {
               name: response.data[0].name.official,
               nativeName: commonName,
@@ -40,7 +31,6 @@ function MyMap() {
               flag: flag,
               coa: coa,
             };
-            console.log(info);
             setSelectedCountry(info);
           });
       },
@@ -51,53 +41,8 @@ function MyMap() {
     setSelectedCountry(null);
   };
 
-  useEffect(() => {
-    console.log(selectedCountry);
-    if (selectedCountry) {
-      const name = selectedCountry.name;
-      axios
-        .get(
-          `https://api.opencagedata.com/geocode/v1/json?q=${name}&key=4378b67f39ea4c9d82e7b34cd72d53b7`
-        )
-        .then((response) => {
-          const hey = response.data.results[0].geometry;
-          console.log(hey);
-          setLatLong([hey.lat, hey.lng]);
-        });
-    }
-  }, [selectedCountry]);
-
-  useEffect(() => {
-    console.log(latlong[1]);
-  }, [latlong]);
-
   return (
     <div className="app__map_info_container slide">
-      {/* {selectedCountry && (
-        <div className="app__country_info headtext__oswald slide">
-          <GiCancel className="overlay__close" onClick={handleCancel} />
-
-          <div>{selectedCountry.name}</div>
-          <div className="p__roboto">
-            Native name: {selectedCountry.nativeName}
-          </div>
-          <div className="p__roboto">
-            Capital: City {selectedCountry.capital}
-          </div>
-          <div className="p__roboto">
-            Population {selectedCountry.population}
-          </div>
-          <div className="flag__container p__roboto">
-            <BsFillFlagFill style={{ marginBottom: "1rem" }} />
-            <img
-              src={selectedCountry.flag}
-              alt="country_flag"
-              style={{ height: "50%", borderRadius: "15px" }}
-            />
-          </div>
-        </div>
-      )} */}
-
       <div className="map__div ">
         <MapContainer
           center={[lat, long]}
@@ -110,6 +55,7 @@ function MyMap() {
             [90, 180],
           ]}
           maxBoundsViscosity={1.0}
+          minZoom={3}
         >
           <GeoJSON
             style={{ weight: "1", opacity: "1", fillOpacity: "0" }}
@@ -124,7 +70,7 @@ function MyMap() {
                 Native name: {selectedCountry.nativeName}
               </div>
               <div className="p__roboto">
-                Capital: City {selectedCountry.capital}
+                Capital City: {selectedCountry.capital}
               </div>
               <div className="p__roboto">
                 Population {selectedCountry.population}
@@ -139,13 +85,15 @@ function MyMap() {
                     border: "solid 0.1px rgba(0, 0, 0, .2)",
                   }}
                 />
-                <img
-                  src={selectedCountry.coa}
-                  alt="country_coa"
-                  style={{
-                    height: "50%",
-                  }}
-                />
+                {selectedCountry.coa && (
+                  <img
+                    src={selectedCountry.coa}
+                    alt="country_coa"
+                    style={{
+                      height: "75%",
+                    }}
+                  />
+                )}
               </div>
             </Popup>
           )}
