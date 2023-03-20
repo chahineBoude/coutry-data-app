@@ -1,7 +1,18 @@
+.fullContainer {
+  display: flex;
+  justify-content: center;
+}
+
 .app__map_info_container {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
 
 .app__country_info {

@@ -26,7 +26,6 @@ const App = () => {
 
   return (
     <>
-      {/*  <Header /> */}
       <MyMap />
     </>
   );
