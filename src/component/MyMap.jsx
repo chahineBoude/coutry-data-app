@@ -14,6 +14,18 @@ function MyMap() {
   let lat = 36.753769;
   let long = 3.058756;
 
+  function formatNumber(num) {
+    if (num >= 1000000000) {
+      return (num / 1000000000).toFixed(3) + "B";
+    } else if (num >= 1000000) {
+      return (num / 1000000).toFixed(3) + "M";
+    } else if (num >= 1000) {
+      return (num / 1000).toFixed(3) + "k";
+    } else {
+      return num;
+    }
+  }
+
   const handleClick = (country, layer) => {
     const countryCode = country.properties.ISO_A3;
     setCountryCode(countryCode);
@@ -36,11 +48,12 @@ function MyMap() {
 
         const flag = response.data[0].flags.svg;
         const coa = response.data[0].coatOfArms.svg;
+        const pop = formatNumber(response.data[0].population);
         setLatLong([e.latlng.lat, e.latlng.lng]);
         const info = {
           name: response.data[0].name.official,
           capital: response.data[0].capital[0],
-          population: response.data[0].population,
+          population: pop,
           flag: flag,
           coa: coa,
         };
