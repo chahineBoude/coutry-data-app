@@ -74,6 +74,23 @@
   color: var(--color-grey);
 }
 
+.country_name {
+  text-align: center;
+}
+
+.popup_info_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  line-height: 22px;
+}
+
+.values {
+  text-align: right;
+  margin-left: 15px;
+}
+
 @-webkit-keyframes slide {
   0% {
     -webkit-transform: translateX(-25%);

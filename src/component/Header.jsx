@@ -7,6 +7,7 @@ import { useClickOutside } from "react-click-outside-hook";
 import { ClipLoader } from "react-spinners";
 import useDebounce from "../hooks/debounceHook";
 import axios from "axios";
+import CountrySelect from "./CountrySelect";
 
 const SearchBarContainer = styled(motion.div)`
   display: flex;
@@ -81,7 +82,6 @@ const SearchResults = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 1em;
 `;
 
 const LineSeperator = styled.span`
@@ -108,7 +108,7 @@ const containerVariants = {
   },
 };
 
-function Header({ setSelectedCountry }) {
+function Header({ setSelectedCountry, setNativeName }) {
   const [isExpanded, setExpanded] = useState(false);
   const [ref, isClickedOutside] = useClickOutside(false);
   const [search, setSearch] = useState("");
@@ -130,7 +130,10 @@ function Header({ setSelectedCountry }) {
   };
 
   useEffect(() => {
-    if (isClickedOutside) collapseContainer();
+    if (isClickedOutside) {
+      collapseContainer();
+      setCountries([]);
+    }
   }, [isClickedOutside]);
 
   const perpareSearchQuery = (query) => {
@@ -158,22 +161,39 @@ function Header({ setSelectedCountry }) {
     setLoading(false);
   };
 
-  useEffect(() => {
-    countries.map((country) => {
-      console.log(country.name.common);
-    });
-  }, [countries]);
-
   useDebounce(search, 500, searchCountry);
+
+  const setPopup = async (country) => {
+    const url = perpareSearchQuery(country);
+    const response = await axios.get(url);
+
+    if (response) {
+      const native = response.data[0].name.nativeName;
+      const nArray = Object.values(native);
+      let n = [];
+      nArray.map((name) => {
+        n.push(name.official);
+      });
+      setNativeName(n);
+      /* const commonName = Object.values(nativeName)[0].official; */
+      const flag = response.data[0].flags.svg;
+      const coa = response.data[0].coatOfArms.svg;
+      const info = {
+        name: response.data[0].name.official,
+        capital: response.data[0].capital[0],
+        population: response.data[0].population,
+        flag: flag,
+        coa: coa,
+      };
+      setSelectedCountry(info);
+      collapseContainer();
+      setCountries([]);
+    }
+  };
 
   return (
     <>
       <div className="app__header ">
-        {/* <div className="app__header_section">
-          <p className="p__roboto">
-            PLACEHOLDER TEXT, PUT STUFF HERE IDK WHAT BUT YEAH
-          </p>
-        </div> */}
         <SearchBarContainer
           animate={isExpanded ? "expanded" : "collapsed"}
           variants={containerVariants}
@@ -197,8 +217,11 @@ function Header({ setSelectedCountry }) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  onClick={collapseContainer}
+                  transition={{ duration: 0.5 }}
+                  onClick={() => {
+                    collapseContainer();
+                    setCountries([]);
+                  }}
                 >
                   <IoCloseCircleOutline />
                 </CloseIcon>
@@ -211,6 +234,18 @@ function Header({ setSelectedCountry }) {
               <LoadingWrapper>
                 <ClipLoader loading color="#5c97f1" size={50} />
               </LoadingWrapper>
+            )}
+            {countries && !isLoading && (
+              <div>
+                {countries.map((country, index) => (
+                  <CountrySelect
+                    key={index}
+                    name={country.name.common}
+                    flag={country.flags.svg}
+                    setPopup={setPopup}
+                  />
+                ))}
+              </div>
             )}
           </SearchResults>
         </SearchBarContainer>
