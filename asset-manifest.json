@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/coutry-data-app/static/css/main.49dca7dd.css",
-    "main.js": "/coutry-data-app/static/js/main.882acddc.js",
+    "main.css": "/coutry-data-app/static/css/main.30a4b24b.css",
+    "main.js": "/coutry-data-app/static/js/main.12ed9df3.js",
     "static/js/787.ba85185d.chunk.js": "/coutry-data-app/static/js/787.ba85185d.chunk.js",
     "static/media/world-classic-2018-banner-clip-72.avif": "/coutry-data-app/static/media/world-classic-2018-banner-clip-72.e0ca0c5ce717277eb084.avif",
     "index.html": "/coutry-data-app/index.html",
-    "main.49dca7dd.css.map": "/coutry-data-app/static/css/main.49dca7dd.css.map",
-    "main.882acddc.js.map": "/coutry-data-app/static/js/main.882acddc.js.map",
+    "main.30a4b24b.css.map": "/coutry-data-app/static/css/main.30a4b24b.css.map",
+    "main.12ed9df3.js.map": "/coutry-data-app/static/js/main.12ed9df3.js.map",
     "787.ba85185d.chunk.js.map": "/coutry-data-app/static/js/787.ba85185d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.49dca7dd.css",
-    "static/js/main.882acddc.js"
+    "static/css/main.30a4b24b.css",
+    "static/js/main.12ed9df3.js"
   ]
 }
