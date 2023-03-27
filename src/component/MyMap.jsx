@@ -1,10 +1,71 @@
 import axios from "axios";
 import React, { useState, Fragment } from "react";
 import { MapContainer, TileLayer, GeoJSON, Popup } from "react-leaflet";
+import styled from "styled-components";
 import country from "../data/countries.json";
 import Header from "./Header";
+import { FaCopyright, FaLinkedin, FaGithub } from "react-icons/fa";
 
 import "./map.css";
+
+const CopyrightContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 300px;
+  height: 2rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  background: rgb(167, 176, 235);
+  background: radial-gradient(
+    circle,
+    rgb(167, 176, 235) 0%,
+    rgb(125, 186, 255) 100%
+  );
+  border-radius: 5px;
+  box-shadow: 0px 2px 12px 3px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  font-family: var(--font-base);
+  align-items: center;
+  padding: 0 1rem;
+  opacity: 0.2;
+  transition: 0.5s ease-in;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const CopyrightText = styled.span`
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CopyrightIcons = styled.span`
+  
+  width: 100%
+  cursor: pointer;
+  vertical-align: middle;
+  horizontal-align: end;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  & *{
+    color: #000;
+    &:hover{
+      color: #fff;
+    }
+    & *{
+      cursor: pointer;
+    }
+    
+  }
+`;
 
 function MyMap() {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -186,6 +247,23 @@ function MyMap() {
             </MapContainer>
           </div>
         </div>
+        <CopyrightContainer>
+          <CopyrightText>
+            <FaCopyright style={{ marginTop: "0.1rem" }} />
+            2023 chahine boudemagh
+          </CopyrightText>
+          <CopyrightIcons>
+            <a
+              href="https://www.linkedin.com/in/chahine-boudemagh-1b1b761b8/"
+              target="_blank"
+            >
+              <FaLinkedin style={{ marginRight: "0.5rem" }} />
+            </a>
+            <a href="https://github.com/chahineBoude" target="_blank">
+              <FaGithub />
+            </a>
+          </CopyrightIcons>
+        </CopyrightContainer>
       </div>
     </>
   );

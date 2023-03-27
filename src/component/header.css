@@ -5,7 +5,6 @@
     rgba(132, 142, 204, 1) 0%,
     rgba(71, 155, 255, 1) 100%
   );
-  padding-top: 2 rem;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
