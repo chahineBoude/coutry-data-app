@@ -1,8 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@300;400;500;600;700&family=Rubik:wght@300;400;500;600;700&&family=Almarai&family=Black+Han+Sans&display=swap");
 
 :root {
   --font-base: "Bebas Neue", serif;
   --font-alt: "Rubik", sans-serif;
+  --font-arabic: "Almarai", sans-serif;
 
   --color-golden: #dcca87;
   --color-black: #5c97f1;

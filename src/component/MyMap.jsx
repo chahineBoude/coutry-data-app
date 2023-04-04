@@ -101,6 +101,7 @@ function MyMap() {
           setNativeName((prevState) => [...prevState, value.official]);
         } */
         const nArray = Object.values(native);
+
         let n = [];
         nArray.map((name) => {
           n.push(name.official);
@@ -203,7 +204,7 @@ function MyMap() {
                   <div className="country_name p__oswald">
                     {selectedCountry.name}
                   </div>
-                  <div className="popup_info_container p__roboto">
+                  <div className="popup_info_container p__roboto p__arabic">
                     Native Names:
                     <div className="values">
                       {nativeName.map((name, i) => (
